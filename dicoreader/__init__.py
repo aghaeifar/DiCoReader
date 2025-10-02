@@ -5,4 +5,5 @@ DiCoReader: Tool for extracting Directional Coupler (DiCo) sample data from Siem
 __version__ = "0.1.0"
 __author__ = "Ali Aghaeifar"
 
+from .dicoreader import read
 # Package initialization
