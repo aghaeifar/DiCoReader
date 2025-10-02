@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=45", "wheel", "setuptools_scm[toml]>=6.2"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "dicoreader"
+version = "0.1.0"
+description = "Tool for extracting Directional Coupler (DiCo) sample data from Siemens Twix file format"
+readme = "README.md"
+requires-python = ">=3.6"
+license = {text = "MIT"}
+authors = [
+    {name = "Ali Aghaeifar"}
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "twixtools",
+    "tqdm",
+    "numpy",
+]
+
+[project.urls]
+Homepage = "https://github.com/aghaeifar/DiCoReader"
