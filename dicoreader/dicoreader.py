@@ -15,6 +15,7 @@ def read(twixObj, isTerraX = False, integral = False):
     channels_max = max(channels_ID) + 1
     # concatenate segments of RFs longer than 1ms
     DICO_comb = []
+    RF_lengths = []
     for mdb in tqdm(mdb_vop, desc='Reading DICO'):   
         data = mdb.data 
         # integral over samples
@@ -26,7 +27,9 @@ def read(twixObj, isTerraX = False, integral = False):
         # concatenate if length is longer than 1ms
         if mdb.mdh.Counter.Ide == 0:
             DICO_comb.append(unsqueezed_data)
+            RF_lengths.append(mdb.data.shape[1])
         else:
+            RF_lengths[-1] = RF_lengths[-1] + mdb.data.shape[1]
             if integral:
                 DICO_comb[-1] = DICO_comb[-1] + unsqueezed_data
             else:
@@ -34,10 +37,11 @@ def read(twixObj, isTerraX = False, integral = False):
 
     # separate different RF pulses if there are more than one RF pulse
     DICO = []
-    shapes = [dico.shape for dico in DICO_comb]  # all shapes
-    shapes = sorted(set(shapes), key=shapes.index)  # unique shapes
-    for i, shape in enumerate(shapes):
-        temp = [dico for dico in tqdm(DICO_comb, desc=f'RF Pulse {i}') if dico.shape == shape]
+    RF_lengths_unq = sorted(set(RF_lengths), key=RF_lengths.index)  # unique shapes
+    print(f'Found {len(RF_lengths_unq)} different RF pulses with lengths: {RF_lengths_unq}')
+    
+    for i, RF_length in enumerate(RF_lengths_unq):
+        temp = [dico for j, dico in enumerate(tqdm(DICO_comb, desc=f'RF Pulse {i}')) if RF_lengths[j] == RF_length]
         DICO.append(np.stack(temp, axis=-1))
 
     # if TerraX, reorder the RFs
