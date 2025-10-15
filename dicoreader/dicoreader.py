@@ -44,6 +44,9 @@ def read(twixObj, isTerraX = False, integral = False):
         temp = [dico for j, dico in enumerate(tqdm(DICO_comb, desc=f'RF Pulse {i}')) if RF_lengths[j] == RF_length]
         DICO.append(np.stack(temp, axis=-1))
 
+    if integral and isTerraX:
+        DICO = [dico / rf_len for dico, rf_len in zip(DICO, RF_lengths_unq)]  # mean signal -> voltage
+        
     # if TerraX, reorder the RFs
     if isTerraX:
         TerraX_orders_limitted = TerraX_orders[:channels_max]
