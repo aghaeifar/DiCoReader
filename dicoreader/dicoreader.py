@@ -1,5 +1,5 @@
 import numpy as np
-from tqdm.auto import tqdm
+from tqdm import tqdm
 
 """
 Reading DICOs samples from Siemens twixfile and returns forward and reflected values
