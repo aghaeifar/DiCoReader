@@ -21,13 +21,13 @@ import dicoreader
 
 twixfile = 'path to twix file'
 twixObj  =  twixtools.read_twix(filepath)
-forward, reflect = dicoreader.read(twixObj, isTerraX=True)
+forward, reflect = dicoreader.read(twixObj)
 
 print("Size of forward and reflect (Cha, Samples, RF No.):")
 for i, (f, r) in enumerate(zip(forward, reflect)):
-    print(f"RF Pulse Type {i}:", f.shape, r.shape)
+    print(f"RF Pulse Type {i}:", forward[f].shape, reflect[r].shape)
 ```
-`forward` and `reflect` are lists of NumPy arrays, where each array represents a distinct RF object. All RF arrays of the same length are assumed to belong to the same RF object. 
+`forward` and `reflect` are dict of NumPy arrays, where each array represents a distinct RF object. All RF arrays of the same length are assumed to belong to the same RF object. 
 
 
 ### Citation:
