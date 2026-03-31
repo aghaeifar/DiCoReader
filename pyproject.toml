@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "dicoreader"
-dynamic = "1.0.00"
+dynamic = ["version"]
 description = "Tool for extracting Directional Coupler (DiCo) sample data from Siemens Twix file format"
 readme = "README.md"
 requires-python = ">=3.10"
@@ -25,3 +25,6 @@ dependencies = [
 
 [project.urls]
 Homepage = "https://github.com/aghaeifar/DiCoReader"
+
+[tool.setuptools_scm]
+write_to = "_version.py"
